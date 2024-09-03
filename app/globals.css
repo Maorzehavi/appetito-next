@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .btn{
-  @apply btn-ghost hover:text-pink-400  hover:bg-inherit hover:translate-x-1
+  @apply btn-ghost hover:text-pink-400  hover:scale-110 transition-transform duration-300 hover:bg-inherit
 }

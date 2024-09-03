@@ -6,7 +6,7 @@ import Link from 'next/link';
 function NavItems() {
   return (
     <div className='p-2'>
-        <ul className='hidden md:flex gap-2 mx-auto items-centers justify-between  mr-24'>
+        <ul className='hidden md:flex gap-2 mx-auto items-centers justify-between '>
             {links.reverse().map((link) => {
             return (
                 <li key={link.title}>
