@@ -1,13 +1,30 @@
 import Link from 'next/link'
-import React from 'react'
-import { LuPizza } from 'react-icons/lu'
+import React, { useContext } from 'react'
+import logoBlack from '@/public/appetito-logo-trans.png'
+import logoWhite from '@/public/appetito-logo-white.png'
+import Image from 'next/image'
+import { ThemeContext } from '@/context/ThemeContext'
 function Logo() {
+    const { theme } = useContext(ThemeContext)
     return (
-        <button className="btn btn-sm rounded-full">
-            <Link href='/'>
-                <LuPizza className='w-6 h-6' />
-            </Link>
-        </button>
+        <>
+            {
+                theme === 'retro' ? (
+                    <Link href='/'>
+                        <Image src={logoBlack} alt='Appetito' width={100} height={50} />
+                    </Link>
+                ) : (
+                    <Link href='/'>
+
+                        <Image src={logoWhite} alt='Appetito' width={100} height={50} />
+
+                    </Link>
+                )
+
+            }
+
+        </>
+
     )
 }
 

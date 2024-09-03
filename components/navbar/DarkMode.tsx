@@ -7,7 +7,7 @@ function DarkMode() {
 
   return (
     <button className='btn btn-ghost btn-sm' onClick={() => {
-        changeTheme(theme === 'garden' ? 'dracula' : 'garden')
+        changeTheme(theme === 'retro' ? 'coffee' : 'retro')
     }}>{theme=== 'garden'? <GoMoon className='w-6 h-6 text-inherit'/> : <GoSun className='h-6 w-6 text-inherit'/>}</button>
   )
 }

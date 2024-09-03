@@ -6,11 +6,11 @@ import Link from 'next/link';
 function NavItems() {
   return (
     <div className='p-2'>
-        <ul className='hidden md:flex gap-2'>
+        <ul className='hidden md:flex gap-2 mx-auto items-centers justify-between  mr-24'>
             {links.reverse().map((link) => {
             return (
                 <li key={link.title}>
-                <Link href={link.href} className='btn btn-ghost'>{link.title}</Link>
+                <Link href={link.href} className='btn btn-ghost text-2xl'>{link.title}</Link>
                 </li>
             )
             })}
@@ -21,7 +21,7 @@ function NavItems() {
           {links.reverse().map((link) => {
             return (
                 <li key={link.title}>
-                <Link href={link.href} className='btn btn-ghost'>{link.title}</Link>
+                <Link href={link.href} className='btn btn-ghost '>{link.title}</Link>
                 </li>
             )
           }

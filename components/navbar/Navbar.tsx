@@ -16,7 +16,7 @@ function Navbar() {
                     </div>
                     <div className='flex flex-row gap-2 items-center'>
                         <DarkMode />
-                        <div className='md:hidden'>
+                        <div className='md:hidden origin-center'>
                             <NavItems />
                         </div>
                     </div>

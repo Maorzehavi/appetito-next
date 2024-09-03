@@ -17,3 +17,18 @@ export const links: NavLink[] = [
         href: '/contact',
     },
 ];
+
+export const dishesLinks: NavLink[] = [
+    {
+        title: 'פיצות',
+        href: '/dishes/pizza',
+    },
+    {
+        title: 'פסטות',
+        href: '/dishes/pasta',
+    },
+    {
+        title: 'סלטים',
+        href: '/dishes/salad',
+    }
+];
