@@ -3,20 +3,18 @@ import React from 'react'
 import Logo from '../navbar/Logo'
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { LiaSlackHash } from 'react-icons/lia';
+import { SignedIn, SignedOut, SignInButton, SignOutButton } from '@clerk/nextjs'
 import Link from 'next/link';
-
 function Footer() {
     return (
-        <footer className="footer footer-center   p-10">
+        <footer className="footer footer-center   pb-4">
             <aside>
                 <Logo footer={true} />
-                <p className="font-bold">
 
-                    <br />
-
-                </p>
-                <p>כל הזכויות שמורות ©{new Date().getFullYear()}</p>
-            </aside>
+                <p className='flex flex-col gap-y-2'>
+                    <span>כל הזכויות שמורות</span>
+                    <span>©{new Date().getFullYear()}</span>
+                </p>            </aside>
             <nav>
                 <div className="grid grid-flow-col gap-4 ">
                     <LiaSlackHash className='h-7 w-7 my-auto mr-3' />
@@ -28,7 +26,16 @@ function Footer() {
                     </a>
                 </div>
             </nav>
-            <Link href={'/admin'}>ניהול</Link>
+            <SignedIn>
+            <div className='flex'>
+                <SignOutButton redirectUrl='/'> התנתק </SignOutButton>
+                <Link href='/admin'>ניהול</Link>
+            </div>
+            </SignedIn>
+            <SignedOut>
+                <SignInButton forceRedirectUrl={'/admin'}>ניהול
+                </SignInButton>
+            </SignedOut>
         </footer>
     )
 }
