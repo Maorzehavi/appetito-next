@@ -1,9 +1,8 @@
-
+'use server'
 import { dishesSchema } from "./schemas";
 import db from "./db";
 import { currentUser } from "@clerk/nextjs/server";
 export const createDishAction = async (prevState: any, formData: FormData) => {
-  "use server";
   try {
     const dataEntries = Object.fromEntries(formData.entries());
     console.log("FormData:", dataEntries); // Log to check form data
@@ -17,6 +16,15 @@ export const createDishAction = async (prevState: any, formData: FormData) => {
     });
 
     return { message: `${validatedData.name} created` };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+export const fetchDishesAction = async () => {
+  try {
+    const dishes = await db.dish.findMany();
+    return  {dishes} ;
   } catch (error) {
     return renderError(error);
   }

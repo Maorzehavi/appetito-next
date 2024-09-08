@@ -32,3 +32,11 @@ export const dishesLinks: NavLink[] = [
         href: '/dishes/salad',
     }
 ];
+
+export const adminLinks: NavLink[] = [
+    {
+        title: 'מנות',
+        href: '/admin/dishes',
+    },
+
+]
