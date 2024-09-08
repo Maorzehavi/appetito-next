@@ -21,12 +21,26 @@ export const createDishAction = async (prevState: any, formData: FormData) => {
   }
 };
 
-export const fetchDishesAction = async () => {
-  try {
-    const dishes = await db.dish.findMany();
-    return  {dishes} ;
-  } catch (error) {
-    return renderError(error);
+export const fetchDishesAction = async (category?: 'PIZZA' | 'PASTA' | 'SALAD' | 'OTHER' ) => {
+  if (category) {
+    try {
+      const dishes = await db.dish.findMany({
+        where: {
+          category : category as any,
+        },
+      });
+      return { dishes };
+    } catch (error) {
+      return renderError(error
+      );
+    }
+  }else{
+    try {
+      const dishes = await db.dish.findMany();
+      return  {dishes} ;
+    } catch (error) {
+      return renderError(error);
+    }
   }
 };
 

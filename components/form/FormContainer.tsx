@@ -1,7 +1,6 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import { useEffect, useState } from 'react';
 import { actionFunction } from '@/utils/types';
 import Toast from '../Toast';
 
@@ -17,19 +16,13 @@ function FormContainer({
   children: React.ReactNode;
 }) {
   const [state, formAction] = useFormState(action, initialState);
-  const [showToast, setShowToast] = useState(false); // Manage toast visibility
-
-  useEffect(() => {
-    if (state.message) {
-      setShowToast(true);
-    }
-  }, [state]);
 
   return (
     <form action={formAction}>
       {children}
-      {showToast && <Toast message={state.message} onClose={() => setShowToast(false)} />} {/* Conditionally render Toast */}
+      {state.message && <Toast message={state.message} />} {/* Just pass the message */}
     </form>
   );
 }
+
 export default FormContainer;

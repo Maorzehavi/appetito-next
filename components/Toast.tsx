@@ -1,26 +1,32 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ToastProps {
-    message: string;
-    duration?: number;
-    onClose: () => void; // Pass a function to close the toast
+  message: string;
+  duration?: number;
 }
 
-const Toast = ({ message, duration = 3000, onClose }: ToastProps) => {
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            onClose(); // Call the onClose function to hide the toast
-        }, duration);
-        return () => clearTimeout(timer);
-    }, [message, duration, onClose]);
+const Toast = ({ message, duration = 3000 }: ToastProps) => {
+  const [visible, setVisible] = useState(false); // Local visibility state
 
-    return (
-        <div className="toast toast-center">
-            <div className="alert alert-success">
-                <span>{message}</span>
-            </div>
-        </div>
-    );
+  useEffect(() => {
+    if (message) {
+      setVisible(true); // Show toast when there's a message
+      const timer = setTimeout(() => {
+        setVisible(false); // Hide toast after the duration
+      }, duration);
+      return () => clearTimeout(timer); // Clean up the timer
+    }
+  }, [message, duration]);
+
+  if (!visible) return null; // Don't render the toast if it's not visible
+
+  return (
+    <div className="toast toast-center">
+      <div className="alert alert-success">
+        <span>{message}</span>
+      </div>
+    </div>
+  );
 };
 
 export default Toast;
