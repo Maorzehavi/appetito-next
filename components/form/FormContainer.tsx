@@ -1,45 +1,35 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { actionFunction } from '@/utils/types';
-import Toast from '../Toast'; // Assuming Toast is in the same folder
+import Toast from '../Toast';
 
 const initialState = {
-    message: '',
+  message: '',
 };
 
 function FormContainer({
-    action,
-    children,
+  action,
+  children,
 }: {
-    action: actionFunction;
-    children: React.ReactNode;
+  action: actionFunction;
+  children: React.ReactNode;
 }) {
-    const [state, formAction] = useFormState(action, initialState); // Get the state and form action from useFormState
-    const [message, setMessage] = useState(''); // Manage the toast message separately
-    const [showToast, setShowToast] = useState(false);
+  const [state, formAction] = useFormState(action, initialState);
+  const [showToast, setShowToast] = useState(false); // Manage toast visibility
 
-    useEffect(() => {
-        if (state.message) {
-            setMessage(state.message); // Set the message from form state
-            setShowToast(true); // Show the toast when a message is present
-        }
-    }, [state.message]);
+  useEffect(() => {
+    if (state.message) {
+      setShowToast(true);
+    }
+  }, [state]);
 
-    const handleToastClose = () => {
-        setShowToast(false); // Hide the toast after 3 seconds
-        setMessage(''); // Clear the message
-    };
-
-    return (
-        <div>
-            {showToast && message && (
-                <Toast message={message} duration={3000} onClose={handleToastClose} />
-            )}
-            <form action={formAction}>{children}</form>
-        </div>
-    );
+  return (
+    <form action={formAction}>
+      {children}
+      {showToast && <Toast message={state.message} onClose={() => setShowToast(false)} />} {/* Conditionally render Toast */}
+    </form>
+  );
 }
-
 export default FormContainer;

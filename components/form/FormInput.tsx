@@ -11,18 +11,24 @@ type FormInputProps = {
 
 
 function FormInput(props: FormInputProps) {
-
     const { name, type, label, defaultValue, placeholder } = props;
     return (
         <div className='mb-2'>
             <label htmlFor={name} className='form-control w-full max-w-sm'>
                 <div className="label">
-                    <span className="label-text">{label}</span>
+                    <span className="label-text text-right">{label}</span>
                 </div>
-                <input type={type} placeholder={placeholder} defaultValue={defaultValue} className="input w-full max-w-sm" />
+                <input
+                    type={type}
+                    name={name} // Ensure name is passed to the input field
+                    placeholder={placeholder}
+                    defaultValue={defaultValue}
+                    className="input w-full max-w-sm text-right"
+                />
             </label>
         </div>
-    )
+    );
 }
+
 
 export default FormInput

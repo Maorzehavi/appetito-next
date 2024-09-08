@@ -1,0 +1,17 @@
+import * as z from 'zod';
+import { ZodSchema } from 'zod';
+
+export const dishesSchema = z.object({
+    name: z.string().min(3, { message: 'Name must be at least 3 characters long' }),
+    description: z.string().min(5, { message: 'Description must be at least 5 characters long' }).optional(),
+    category: z.enum(['PIZZA', 'PASTA', 'SALAD', 'OTHER'], { message: 'Invalid category' }),
+  });
+
+export function validateWithZodSchema<T>(schema: ZodSchema<T>, data:unknown):T {
+    const result = schema.safeParse(data);
+    if (!result.success) {
+        const errors = result.error.errors.map((error) => error.message);
+        throw new Error(errors.join(', '));
+    }
+    return result.data;
+}

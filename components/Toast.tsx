@@ -3,17 +3,16 @@ import { useEffect } from 'react';
 interface ToastProps {
     message: string;
     duration?: number;
-    onClose: () => void;
+    onClose: () => void; // Pass a function to close the toast
 }
 
 const Toast = ({ message, duration = 3000, onClose }: ToastProps) => {
     useEffect(() => {
         const timer = setTimeout(() => {
-            onClose(); // Call the onClose callback after the duration
+            onClose(); // Call the onClose function to hide the toast
         }, duration);
-
-        return () => clearTimeout(timer); // Clean up the timer on unmount
-    }, [duration, onClose]);
+        return () => clearTimeout(timer);
+    }, [message, duration, onClose]);
 
     return (
         <div className="toast toast-center">

@@ -14,7 +14,19 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Test {
-  id   String @id @default(uuid())
-  name String
+model Dish {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  category    Category
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum Category {
+  PIZZA
+  PASTA
+  SALAD
+  OTHER
 }
