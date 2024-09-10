@@ -1,6 +1,7 @@
 import SubmitButton from '@/components/form/Buttons'
 import FormContainer from '@/components/form/FormContainer'
 import FormInput from '@/components/form/FormInput'
+import ImageInput from '@/components/form/ImageInput'
 import SelectInput from '@/components/form/SelectInput'
 import { createDishAction } from '@/utils/actions'
 import React from 'react'
@@ -21,6 +22,7 @@ function AdminDishesPage() {
               { name: 'אחר', value: 'OTHER' },
             ]} />
           </div>
+          <ImageInput />
           <div className='flex items-center'>
             <SubmitButton text='הוסף מנה' className='mt-8 mx-auto' />
           </div>

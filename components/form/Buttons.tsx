@@ -3,6 +3,7 @@ import { useFormStatus } from 'react-dom';
 type SubmitButtonProps = {
     className?: string;
     text?: string;
+    size? : 'md' | 'sm' | 'lg';
 };
 
 function SubmitButton(props: SubmitButtonProps) {
@@ -11,7 +12,7 @@ function SubmitButton(props: SubmitButtonProps) {
         <button
             type='submit'
             disabled={pending}
-            className={`capitalize btn btn-lg${props.className}`}
+            className={`capitalize btn ${props.className} ${props.size === 'sm' ? 'btn-sm' : props.size === 'lg' ? 'btn-lg' : 'btn-md'}`}
         >
             {pending ? (
                 <>

@@ -15,3 +15,17 @@ export function validateWithZodSchema<T>(schema: ZodSchema<T>, data:unknown):T {
     }
     return result.data;
 }
+export const imageSchema = z.object({
+    image: validateFile(),
+  });
+
+  function validateFile() {
+    const acceptedFileTypes = ['image/'];
+    return z
+      .instanceof(File)
+      .refine((file) => {
+        return (
+          !file || acceptedFileTypes.some((type) => file.type.startsWith(type))
+        );
+      }, 'File must be an image');
+  }

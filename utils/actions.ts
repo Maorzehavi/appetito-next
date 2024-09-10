@@ -1,24 +1,33 @@
 'use server'
-import { dishesSchema } from "./schemas";
+import { dishesSchema, imageSchema, validateWithZodSchema } from "./schemas";
 import db from "./db";
 import { currentUser } from "@clerk/nextjs/server";
-export const createDishAction = async (prevState: any, formData: FormData) => {
+import { uploadImage } from "./supabase";
+import { redirect } from "next/navigation";
+
+export const createDishAction = async (
+  prevState: any,
+  formData: FormData
+): Promise<{ message: string }> => {
+  const user = await currentUser();
   try {
-    const dataEntries = Object.fromEntries(formData.entries());
-    console.log("FormData:", dataEntries); // Log to check form data
+    const rawData = Object.fromEntries(formData);
+    const file = formData.get('image') as File;
 
-    const user = await currentUser();
-    if (!user) throw new Error("Please sign in");
+    const validatedFields = validateWithZodSchema(dishesSchema, rawData);
+    const validatedFile = validateWithZodSchema(imageSchema, { image: file });
+    const fullPath = await uploadImage(validatedFile.image);
 
-    const validatedData = dishesSchema.parse(dataEntries);
     await db.dish.create({
-      data: validatedData,
+      data: {
+        ...validatedFields,
+        image: fullPath,
+      },
     });
-
-    return { message: `${validatedData.name} created` };
   } catch (error) {
     return renderError(error);
   }
+  redirect('/admin/dishes');
 };
 
 export const fetchDishesAction = async (category?: 'PIZZA' | 'PASTA' | 'SALAD' | 'OTHER' ) => {
