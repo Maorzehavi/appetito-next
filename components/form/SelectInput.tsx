@@ -6,7 +6,7 @@ type SelectInputProps = {
     label?: string;
     defaultValue?: string;
     placeholder?: string;
-    options: {name:string, value:string}[];
+    options: { name: string, value: string }[];
 };
 
 
@@ -18,12 +18,12 @@ function SelectInput(props: SelectInputProps) {
                 <span className="label-text">{label ? label : ''}</span>
             </div>
             <select className='select select-bordered text-right' name={name} defaultValue={defaultValue}>
-                <option disabled value="">
-                    {placeholder ? placeholder : 'Select an option'}
+                <option disabled selected value="">
+                    {placeholder ? placeholder : 'בחר קטגוריה'}
                 </option>
                 {options.map((option, index) => (
                     <option key={index} value={option.value}>
-                       <span>{option.name}</span>
+                        {option.name}
                     </option>
                 ))}
             </select>

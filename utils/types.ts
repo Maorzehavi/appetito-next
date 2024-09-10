@@ -12,3 +12,11 @@ export type actionFunction = (
     createdAt: Date;
     updatedAt: Date;
 };
+
+
+export const catigores = [
+    { name: 'פיצה', value: 'PIZZA' },
+    { name: 'פסטה', value: 'PASTA' },
+    { name: 'סלט', value: 'SALAD' },
+    { name: 'אחר', value: 'OTHER' },
+  ]

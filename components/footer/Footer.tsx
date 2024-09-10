@@ -7,7 +7,7 @@ import { SignedIn, SignedOut, SignInButton, SignOutButton } from '@clerk/nextjs'
 import Link from 'next/link';
 function Footer() {
     return (
-        <footer className="footer footer-center   pb-4">
+        <footer className="footer footer-center pb-4">
             <aside>
                 <div className='tooltip tooltip-primary' data-tip="לעמוד הראשי">
                     <Logo footer={true} />

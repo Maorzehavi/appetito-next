@@ -3,7 +3,9 @@ import FormContainer from '@/components/form/FormContainer'
 import FormInput from '@/components/form/FormInput'
 import ImageInput from '@/components/form/ImageInput'
 import SelectInput from '@/components/form/SelectInput'
+import TextAreaInput from '@/components/form/TextAreaInput'
 import { createDishAction } from '@/utils/actions'
+import {catigores} from '@/utils/types'
 import React from 'react'
 
 function AdminDishesPage() {
@@ -14,13 +16,9 @@ function AdminDishesPage() {
         <FormContainer action={createDishAction}>
           <div className='grid gap-4 mt-4 '>
             <FormInput type='text' name='name' label='שם המנה' placeholder={'שם המנה'} />
-            <FormInput type='text' name='description' label='תיאור המנה' placeholder={'תיאור המנה'} />
-            <SelectInput name='category' label='קטגוריה' options={[
-              { name: 'פיצה', value: 'PIZZA' },
-              { name: 'פסטה', value: 'PASTA' },
-              { name: 'סלט', value: 'SALAD' },
-              { name: 'אחר', value: 'OTHER' },
-            ]} />
+            {/* <FormInput type='text' name='description' label='תיאור המנה' placeholder={'תיאור המנה'} /> */}
+            <TextAreaInput name='description' label='תיאור המנה' placeholder='תיאור המנה'/>
+            <SelectInput name='category' label='קטגוריה' options={catigores} />
           </div>
           <ImageInput />
           <div className='flex items-center'>

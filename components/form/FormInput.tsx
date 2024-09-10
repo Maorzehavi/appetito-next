@@ -23,7 +23,7 @@ function FormInput(props: FormInputProps) {
                     name={name} // Ensure name is passed to the input field
                     placeholder={placeholder}
                     defaultValue={defaultValue}
-                    className="input w-full max-w-sm text-right"
+                    className="input input-bordered w-full max-w-sm text-right"
                 />
             </label>
         </div>
