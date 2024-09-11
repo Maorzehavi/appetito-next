@@ -4,6 +4,7 @@ import { Dish } from '@prisma/client';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import Toast from '../Toast';
+import { getCategoryName } from '@/utils/types';
 
 // Define the Dish type to match the object structure
 
@@ -48,7 +49,7 @@ function DishesTable() {
                                     </Link>
                                 </div>
                             </td>
-                            <td>{dish.category}</td>
+                            <td>{getCategoryName(dish.category)}</td>
                             <td>{dish.description}</td>
                             <td>{dish.name}</td>
 

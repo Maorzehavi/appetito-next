@@ -18,7 +18,7 @@ function SelectInput(props: SelectInputProps) {
                 <span className="label-text">{label ? label : ''}</span>
             </div>
             <select className='select select-bordered text-right' name={name} defaultValue={defaultValue}>
-                <option disabled selected value="">
+                <option disabled selected={defaultValue ? false : true} value="">
                     {placeholder ? placeholder : 'בחר קטגוריה'}
                 </option>
                 {options.map((option, index) => (

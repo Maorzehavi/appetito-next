@@ -7,6 +7,7 @@ type FormInputProps = {
     label?: string;
     defaultValue?: string;
     placeholder?: string;
+    hidden?: boolean;
 };
 
 
@@ -24,6 +25,7 @@ function FormInput(props: FormInputProps) {
                     placeholder={placeholder}
                     defaultValue={defaultValue}
                     className="input input-bordered w-full max-w-sm text-right"
+                    hidden={props.hidden ? props.hidden : false}
                 />
             </label>
         </div>
