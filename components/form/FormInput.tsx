@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React from 'react';
 
 type FormInputProps = {
     name: string;
@@ -10,27 +9,25 @@ type FormInputProps = {
     hidden?: boolean;
 };
 
-
 function FormInput(props: FormInputProps) {
-    const { name, type, label, defaultValue, placeholder } = props;
+    const { name, type, label, defaultValue, placeholder, hidden } = props;
     return (
-        <div className='mb-2'>
-            <label htmlFor={name} className='form-control w-full max-w-sm'>
+        <div className='mb-2 w-full'>
+            <label htmlFor={name} className='form-control w-full'>
                 <div className="label">
                     <span className="label-text text-right">{label}</span>
                 </div>
                 <input
                     type={type}
-                    name={name} // Ensure name is passed to the input field
+                    name={name}
                     placeholder={placeholder}
                     defaultValue={defaultValue}
-                    className="input input-bordered w-full max-w-sm text-right"
-                    hidden={props.hidden ? props.hidden : false}
+                    className="input input-bordered w-full text-right"
+                    hidden={hidden ? hidden : false}
                 />
             </label>
         </div>
     );
 }
 
-
-export default FormInput
+export default FormInput;

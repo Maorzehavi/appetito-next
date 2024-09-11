@@ -8,47 +8,67 @@ import ImageInput from './ImageInput';
 import SubmitButton from './Buttons';
 
 type ImageInputContainerProps = {
-    image: string
-    name: string
-    action: actionFunction
-    text: string
-    children?: React.ReactNode
+    image: string;
+    name: string;
+    action: actionFunction;
+    text: string;
+    children?: React.ReactNode;
 }
 
+function ImageInputContainer({ image, name, action, text, children }: ImageInputContainerProps) {
+    const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false);
+    const [loading, setLoading] = useState(true); // To handle image loading state
 
-function ImageInputContainer(props: ImageInputContainerProps) {
-    const { image, name, action, text } = props
-    const [isUpdateFromVisible, setIsUpdateFormVisible] = useState(false)
+    const toggleFormVisibility = () => {
+        setIsUpdateFormVisible(prev => !prev);
+    }
 
     const imageIcon = (
         <CiImageOff className='w-24 h-24 bg-primary rounded-md text-white mb-4' />
-    )
+    );
+
     return (
-        <div>
+        <div className='flex flex-col items-center'>
             {image ? (
-                <Image
-                    src={image}
-                    width={100}
-                    height={100}
-                    className="rounded-md object-cover mb-4 w-24 h-24"
-                    alt={name}
-                />
+                <div className='relative'>
+                    {loading && (
+                        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center rounded-md">
+                            <span>Loading...</span>
+                        </div>
+                    )}
+                    <Image
+                        src={image}
+                        width={400}
+                        height={300}
+                        className={`rounded-md object-cover mb-4 transition-opacity ${loading ? 'opacity-0' : 'opacity-100'}`}
+                        alt={name}
+                        onLoadingComplete={() => setLoading(false)}
+                    />
+                </div>
             ) : (
                 imageIcon
             )}
-            <button className='btn btn-primary' onClick={() => setIsUpdateFormVisible((prev) => !prev)}
-            >{text}</button>
-            {isUpdateFromVisible && (
-                <div className='max-w-lg mt-4'>
+
+            <button
+                className='btn btn-wide mt-8 transition-transform hover:scale-105 focus:outline-none'
+                onClick={toggleFormVisibility}
+                aria-expanded={isUpdateFormVisible}
+                aria-controls="image-update-form"
+            >
+                {text}
+            </button>
+
+            {isUpdateFormVisible && (
+                <div id="image-update-form" className='w-full mt-4 p-4 rounded-lg shadow-md'>
                     <FormContainer action={action}>
-                        {props.children}
-                        <ImageInput/>
-                        <SubmitButton size='sm'/>
+                        {children}
+                        <ImageInput />
+                        <SubmitButton size='sm' />
                     </FormContainer>
                 </div>
             )}
         </div>
-    )
+    );
 }
 
-export default ImageInputContainer
+export default ImageInputContainer;

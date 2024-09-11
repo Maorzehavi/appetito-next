@@ -26,7 +26,7 @@ function DishesTable() {
     }, []);
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto max-w-7xl mx-auto">
             <table className="table text-right">
                 {/* head */}
                 <thead>
@@ -45,7 +45,7 @@ function DishesTable() {
                             <td>
                                 <div className="flex justify-end">
                                     <Link href={`/admin/dishes/${dish.id}`}>
-                                        <button className="btn btn-sm btn-square btn-ghost">עריכה</button>
+                                        <button className="btn btn-sm btn-square btn-ghost btn-link ">עריכה</button>
                                     </Link>
                                 </div>
                             </td>
@@ -56,10 +56,12 @@ function DishesTable() {
                             <td>
                                 <div className="flex items-center gap-3">
                                     <div className="avatar">
-                                        <div className="mask mask-squircle h-12 w-12">
-                                            <img
-                                                src={dish.image!}
-                                                alt={dish.name} />
+                                        <div className="mask mask-squircle h-12 w-12 hover:scale-150 transition-transform duration-300">
+                                            <Link href={`/admin/dishes/${dish.id}`}>
+                                                <img
+                                                    src={dish.image!}
+                                                    alt={dish.name} />
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

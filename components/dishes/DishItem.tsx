@@ -11,8 +11,8 @@ import ImageInputContainer from '../form/ImageInputContainer'
 import Toast from '../Toast'
 
 function DishItem({ dishId }: { dishId: string }) {
-    // here i will display the dish details and the form to update the dish or delete it
     const [dish, setDish] = useState({} as Dish)
+
     useEffect(() => {
         async function fetchDishes() {
             const result = await fetchDishAction(dishId);
@@ -24,33 +24,44 @@ function DishItem({ dishId }: { dishId: string }) {
             }
         }
         fetchDishes();
-    }, []);
-    return (
-        <section className='flex items-center flex-col'>
-            <h1 className='text-2xl font-semibold mb-8 capitalize'>{dish.name}</h1>
-            <div className=' p-8 rounded-md max-w-lg '>
-                <FormContainer action={updateDishAction}>
-                    <div className='grid gap-4 mt-4 '>
-                        <FormInput hidden={true} type='text' name='id' defaultValue={dish.id} />
-                        <FormInput type='text' name='name' label='שם המנה' placeholder={dish.name} defaultValue={dish.name} />
-                        <TextAreaInput name='description' label='תיאור המנה' placeholder={dish.description!} defaultValue={dish.description!}  />
-                        <SelectInput name='category' label='קטגוריה' options={catigores} defaultValue={dish.category} />
-                    </div>
-                    <div className='flex items-center'>
-                        <SubmitButton text='עדכון מנה' className='mt-8 mx-auto' />
-                    </div>
-                </FormContainer>
-                <ImageInputContainer
-                    image={dish.image!}
-                    name={dish.name}
-                    action={updateDishImageAction}
-                    text='Update Dish Image'
-                >
-                    <FormInput hidden={true} type='text' name='id' defaultValue={dish.id} />
+    }, [dishId]);
 
-                </ImageInputContainer>
+    return (
+        <>
+            <h1 className='text-3xl font-semibold mb-8 capitalize text-center mt-8'>{dish.name}</h1>
+            <div className='flex flex-row gap-8 justify-center items-center'>
+                {/* Image Update Section */}
+                <div className='flex flex-col items-center'>
+                    <ImageInputContainer
+                        image={dish.image!}
+                        name={dish.name}
+                        action={updateDishImageAction}
+                        text='עדכון  תמונה'
+                    >
+                        <FormInput hidden={true} type='text' name='id' defaultValue={dish.id} />
+                    </ImageInputContainer>
+                </div>
+
+                <div className="divider divider-horizontal mx-4"></div>
+
+                {/* Dish Info Update Section */}
+                <section className='flex items-center flex-col w-1/2'>
+                    <div className='p-8 rounded-md w-full'>
+                        <FormContainer action={updateDishAction}>
+                            <div className='grid gap-4 mt-4'>
+                                <FormInput hidden={true} type='text' name='id' defaultValue={dish.id} />
+                                <FormInput type='text' name='name' label='שם המנה' placeholder={dish.name} defaultValue={dish.name} />
+                                <TextAreaInput name='description' label='תיאור המנה' placeholder={dish.description!} defaultValue={dish.description!} />
+                                <SelectInput name='category' label='קטגוריה' options={catigores} defaultValue={dish.category} />
+                            </div>
+                            <div className='flex items-center'>
+                                <SubmitButton text='עדכון פרטי מנה' className='mt-8 mx-auto' />
+                            </div>
+                        </FormContainer>
+                    </div>
+                </section>
             </div>
-        </section>
+        </>
     )
 }
 
