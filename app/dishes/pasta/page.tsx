@@ -1,12 +1,14 @@
 'use client'
 import DishCard from '@/components/dishes/DishCard';
+import DishesList from '@/components/dishes/DishesList';
 import Toast from '@/components/Toast';
 import { fetchDishesAction } from '@/utils/actions';
 import { Dish } from '@prisma/client';
 import React, { useEffect, useState } from 'react'
 
-function PastaPage() {
-  const [dishes, setDishes] = useState<Dish[]>([]); // Use the Dish type here
+function PizzaPage() {
+  const [dishes, setDishes] = useState<Dish[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for error message
 
   useEffect(() => {
     async function fetchDishes() {
@@ -14,20 +16,18 @@ function PastaPage() {
       if ('dishes' in result) {
         setDishes(result.dishes);
       } else {
-        <Toast message={result.message} />
+        setErrorMessage(result.message); // Update state with error message
       }
     }
     fetchDishes();
   }, []);
 
   return (
-    <div>{
-      dishes.map((dish, index) => (
-        <DishCard key={index} name={dish.name} description={dish.description!} image={dish.image!} />
-      ))
-    }
-    </div>
-  )
+    <>
+      {errorMessage && <Toast message={errorMessage} />} {/* Conditionally render Toast if there's an error */}
+      <DishesList dishes={dishes}/>
+    </>
+  );
 }
 
-export default PastaPage
+export default PizzaPage;

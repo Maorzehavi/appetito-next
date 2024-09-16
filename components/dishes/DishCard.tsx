@@ -9,7 +9,7 @@ type DishCardProps = {
 
 function DishCard(props: DishCardProps) {
   return (
-    <div className="card bg-base-100 w-96 max-w-xs">
+    <div className="card bg-base-100 w-96 max-w-xs text-right">
       <div className="card-body">
         <h2 className="card-title text-2xl">{props.name}</h2>
         <div className="overflow-auto h-24 text-lg">

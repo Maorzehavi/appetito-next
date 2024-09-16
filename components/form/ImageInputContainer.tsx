@@ -17,7 +17,7 @@ type ImageInputContainerProps = {
 
 function ImageInputContainer({ image, name, action, text, children }: ImageInputContainerProps) {
     const [isUpdateFormVisible, setIsUpdateFormVisible] = useState(false);
-    const [loading, setLoading] = useState(true); // To handle image loading state
+    const [loading, setLoading] = useState(true);
 
     const toggleFormVisibility = () => {
         setIsUpdateFormVisible(prev => !prev);

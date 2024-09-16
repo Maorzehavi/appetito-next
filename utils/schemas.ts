@@ -29,3 +29,21 @@ export const imageSchema = z.object({
         );
       }, 'File must be an image');
   }
+
+
+  export const imageOptionalSchema = z.object({
+    image: validateOptionalFile(), // Change to optional
+});
+
+function validateOptionalFile() {
+    const acceptedFileTypes = ['image/'];
+    return z
+      .instanceof(File)
+      .optional() // Make it optional
+      .refine((file) => {
+        if (file) {
+          return acceptedFileTypes.some((type) => file.type.startsWith(type));
+        }
+        return true; // Allow if file is not provided
+      }, 'File must be an image');
+}

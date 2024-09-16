@@ -1,5 +1,10 @@
 "use server";
-import { dishesSchema, imageSchema, validateWithZodSchema } from "./schemas";
+import {
+  dishesSchema,
+  imageOptionalSchema,
+  imageSchema,
+  validateWithZodSchema,
+} from "./schemas";
 import db from "./db";
 import { currentUser } from "@clerk/nextjs/server";
 import { uploadImage } from "./supabase";
@@ -57,21 +62,19 @@ export const fetchDishesAction = async (
 };
 
 export const fetchDishAction = async (dishId: string) => {
-  try {
-    const dish = await db.dish.findUnique({
-      where: {
-        id: dishId,
-      },
-    });
-    return { dish };
-  } catch (error) {
-    return renderError(error);
+  const dish = await db.dish.findUnique({
+    where: {
+      id: dishId,
+    },
+  });
+  if (!dish) {
+    throw new Error("Dish not found");
   }
+  return  dish ;
 };
 
 export const updateDishAction = async (
   prevState: any,
-  // dishId: string,
   formData: FormData
 ): Promise<{ message: string }> => {
   var dishId;
@@ -106,7 +109,12 @@ export const updateDishImageAction = async (
   try {
     dishId = formData.get("id") as string;
     const image = formData.get("image") as File;
-    const validatedFields = validateWithZodSchema(imageSchema, { image });
+    const validatedFields = validateWithZodSchema(imageOptionalSchema, {
+      image,
+    });
+    if (!validatedFields.image) {
+      return { message: "No image provided" };
+    }
     const fullPath = await uploadImage(validatedFields.image);
 
     await db.dish.update({
