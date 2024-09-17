@@ -108,6 +108,7 @@ export const updateDishImageAction = async (
   var dishId;
   try {
     dishId = formData.get("id") as string;
+    console.log(dishId)
     const image = formData.get("image") as File;
     const validatedFields = validateWithZodSchema(imageOptionalSchema, {
       image,
