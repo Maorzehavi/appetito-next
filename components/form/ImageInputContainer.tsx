@@ -71,4 +71,5 @@ function ImageInputContainer({ image, name, action, text, children }: ImageInput
     );
 }
 
+
 export default ImageInputContainer;
