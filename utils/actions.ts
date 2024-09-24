@@ -114,7 +114,7 @@ export const updateDishImageAction = async (
       image,
     });
     if (!validatedFields.image) {
-      return { message: "no image provided" };
+      return { message: "No image provided" };
     }
     const fullPath = await uploadImage(validatedFields.image);
 
